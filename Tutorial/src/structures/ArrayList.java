@@ -51,7 +51,6 @@ public class ArrayList<E> implements List<E> {
 			data[i] = insert;
 			insert = temp;
 		}
-		// might need to add at the end here;
 		index++;
 	}
 
@@ -77,7 +76,6 @@ public class ArrayList<E> implements List<E> {
 		return true;
 	}
 
-	// add all starting from index arg0
 	@Override
 	public boolean addAll(int arg0, Collection<? extends E> arg1) {
 		Iterator<? extends E> iterator = arg1.iterator();
@@ -155,7 +153,6 @@ public class ArrayList<E> implements List<E> {
 		return new ListIter<E>(arg0);
 	}
 
-	// remove first occurrence of
 	@Override
 	public boolean remove(Object arg0) {
 		boolean result = false;

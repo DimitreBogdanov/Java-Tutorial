@@ -5,6 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * List data structure implementation
+ * @author Dimitre Bogdanov
+ *
+ * @param <E> Type of data to me contained within the elements of the ArrayList
+ */
 public class ArrayList<E> implements List<E> {
 
 	private Object[] data;

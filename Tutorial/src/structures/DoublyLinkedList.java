@@ -2,9 +2,12 @@ package structures;
 
 /**
  * Double LinkedList structure implementation
+ * 
  * @author Dimitre Bogdanov
  *
- * @param <E> Type of data to me contained within the nodes of the DoublyLinkedList
+ * @param <E>
+ *            Type of data to me contained within the nodes of the
+ *            DoublyLinkedList
  */
 public class DoublyLinkedList<E> {
 
@@ -72,10 +75,14 @@ public class DoublyLinkedList<E> {
 			current = current.next;
 		}
 		if (current != null) {
-			Node<E> newNode = new Node<E>(element, current, current.previous);
-			current.previous.next = newNode;
-			current.previous = newNode;
-			size++;
+			if (current.previous == null) {
+				addFirst(element);
+			} else {
+				Node<E> newNode = new Node<E>(element, current, current.previous);
+				current.previous.next = newNode;
+				current.previous = newNode;
+				size++;
+			}
 		}
 	}
 
@@ -85,15 +92,18 @@ public class DoublyLinkedList<E> {
 			current = current.next;
 		}
 		if (current != null) {
-			current.previous.next = current.next;
+			if (current.previous == null) {
+				head = current.next;
+			} else {
+				current.previous.next = current.next;
+			}
 			size--;
 		}
-		size--;
 	}
 
 	public void removeLast() {
 		Node<E> current = head;
-		if(current == null)
+		if (current == null)
 			return;
 		while (current.next != null) {
 			current = current.next;
@@ -102,7 +112,6 @@ public class DoublyLinkedList<E> {
 			current.previous.next = null;
 			size--;
 		}
-		size--;
 	}
 
 	public E get(int index) {

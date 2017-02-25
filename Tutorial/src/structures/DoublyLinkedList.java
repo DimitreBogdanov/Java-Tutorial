@@ -1,5 +1,11 @@
 package structures;
 
+/**
+ * Double LinkedList structure implementation
+ * @author Dimitre Bogdanov
+ *
+ * @param <E> Type of data to me contained within the nodes of the DoublyLinkedList
+ */
 public class DoublyLinkedList<E> {
 
 	private class Node<T extends E> {
@@ -19,24 +25,33 @@ public class DoublyLinkedList<E> {
 	}
 
 	private Node<E> head;
-	private Node<E> tail;
 	private int size;
 
-	//Review this => head = tail when you have a single element
 	public DoublyLinkedList() {
 		head = null;
-		tail = null;
 		size = 0;
 	}
 
 	public void addFirst(E element) {
-		head = new Node<E>(element, head, null);
+		if (head == null) {
+			head = new Node<E>(element, null, null);
+		} else {
+			head = new Node<E>(element, head, null);
+		}
 		size++;
 	}
 
 	public void addLast(E element) {
-		tail = new Node<E>(element, null, tail);
-		size++;
+		if (head == null) {
+			addFirst(element);
+		} else {
+			Node<E> current = head;
+			while (current.next != null) {
+				current = current.next;
+			}
+			current.next = new Node<E>(element, null, current);
+			size++;
+		}
 	}
 
 	// Add after only if you find that element
@@ -77,7 +92,16 @@ public class DoublyLinkedList<E> {
 	}
 
 	public void removeLast() {
-
+		Node<E> current = head;
+		if(current == null)
+			return;
+		while (current.next != null) {
+			current = current.next;
+		}
+		if (current != null) {
+			current.previous.next = null;
+			size--;
+		}
 		size--;
 	}
 

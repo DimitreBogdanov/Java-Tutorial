@@ -36,6 +36,7 @@ public class Stack<E>{
 			temp[i] = data[i];
 		}
 		data = temp;
+		capacity = newCapacity;
 	}
 	
 	public void push(E element){

@@ -46,6 +46,7 @@ public class ArrayList<E> implements List<E> {
 			temp[i] = data[i];
 		}
 		data = temp;
+		capacity = newCapacity;
 	}
 
 	private void pushElements(int start) {

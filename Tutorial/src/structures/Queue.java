@@ -40,12 +40,11 @@ public class Queue<E> {
 	private void transfer() {
 		int newCapacity = (2 * capacity) + 1;
 		Object[] temp = new Object[newCapacity];
-		int i = front;
-		for (int j = 0; i != rear; i = (i + 1) % capacity, j++) {
-			temp[j] = data[i];
+		for (int j = 0; front != rear; front = (front + 1) % capacity, j++) {
+			temp[j] = data[front];
 		}
+		rear = size;
 		front = 0;
-		rear = i;
 		data = temp;
 		capacity = newCapacity;
 	}
@@ -65,10 +64,16 @@ public class Queue<E> {
 	}
 
 	public E front() {
+		if (isEmpty())
+			throw new IllegalAccessError(
+					"Cannot " + new Object(){}.getClass().getEnclosingMethod().getName() + " on an empty queue");
 		return (E) data[front];
 	}
 
 	public E dequeue() {
+		if (isEmpty())
+			throw new IllegalAccessError(
+					"Cannot " + new Object(){}.getClass().getEnclosingMethod().getName() + " on an empty queue");
 		E element = (E) data[front];
 		// this is optional, you'll just overwrite it later
 		data[front] = null;
@@ -77,7 +82,8 @@ public class Queue<E> {
 		return element;
 	}
 
-	// check formula to calculate size based on front and rear mod capacity
+	// Can also use a formula using rear and front to determine the size rather
+	// than keeping a variable, it's there for simplicity
 	public int size() {
 		return size;
 	}

@@ -40,9 +40,12 @@ public class Queue<E> {
 	private void transfer() {
 		int newCapacity = (2 * capacity) + 1;
 		Object[] temp = new Object[newCapacity];
-		for (int i = 0; i < capacity; i++) {
-			temp[i] = data[i];
+		int i = front;
+		for (int j = 0; i != rear; i = (i + 1) % capacity, j++) {
+			temp[j] = data[i];
 		}
+		front = 0;
+		rear = i;
 		data = temp;
 		capacity = newCapacity;
 	}

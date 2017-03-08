@@ -33,7 +33,7 @@ public class BinaryTree<E extends Comparable<E>> {
 
 	private void add(Node previous, E data) {
 		// New data smaller, put it on the left
-		if (data.compareTo(previous.data) == -1) {
+		if (data.compareTo(previous.data) < 0) {
 			if (previous.left == null)
 				previous.left = new Node(data, null, null);
 			else
@@ -47,8 +47,39 @@ public class BinaryTree<E extends Comparable<E>> {
 		}
 	}
 
-	public E remove(E data) {
-		return null;// TODO
+	public void remove(E data) {
+		internalRemove(root, data);
+		size--;
+	}
+
+	private Node internalRemove(Node node, E data) {
+
+		// Base case if empty
+		if (node == null)
+			return node;
+
+		// Go through the tree
+		if (data.compareTo(node.data) < 0) {
+			node.left = internalRemove(node.left, data);
+		} else if (data.compareTo(node.data) > 0) {
+			node.right = internalRemove(node.right, data);
+		} else {
+			// At this point, we have found the node to remove
+
+			// If there is only one child, left or right
+			if (node.left == null) {
+				return node.right;
+			} else if (node.right == null) {
+				return node.left;
+			}
+
+			// If it gets to here, node has two children, both left and right,
+			// replace data and delete
+			node.data = low(node.right);
+			node.right = internalRemove(node.right, node.data);
+		}
+
+		return node;
 	}
 
 	public int size() {
@@ -60,18 +91,26 @@ public class BinaryTree<E extends Comparable<E>> {
 	}
 
 	public E low() {
-		if (root == null)
+		return low(root);
+	}
+
+	public E low(Node start) {
+		if (start == null)
 			return null;
-		Node current = root;
+		Node current = start;
 		while (current.left != null)
 			current = current.left;
 		return current.data;
 	}
 
 	public E high() {
-		if (root == null)
+		return high(root);
+	}
+
+	public E high(Node start) {
+		if (start == null)
 			return null;
-		Node current = root;
+		Node current = start;
 		while (current.right != null)
 			current = current.right;
 		return current.data;
@@ -117,9 +156,45 @@ public class BinaryTree<E extends Comparable<E>> {
 		return find(root, content);
 	}
 
+	public boolean contains(E content, boolean iterative) {
+		if (iterative)
+			return iterativeFind(root, content);
+		return find(root, content);
+	}
+
+	// Preorder-based algorithm
 	private boolean find(Node node, E content) {
 		if (node != null) {
-			// to complete
+			if (content.equals(node.data))
+				return true;
+			return find(node.left, content) || find(node.right, content);
+		}
+		return false;
+	}
+
+	private boolean iterativeFind(Node root, E content) {
+		if (root != null) {
+			Queue<Node> queue = new Queue<>();
+
+			queue.enqueue(root);
+
+			while (!queue.isEmpty()) {
+				Node current = queue.dequeue();
+
+				if (current.data.equals(content)) {
+					return true;
+				}
+
+				if (current.left != null) {
+					queue.enqueue(current.left);
+				}
+
+				if (current.right != null) {
+					queue.enqueue(current.right);
+				}
+			}
+
+			return false;
 		}
 		return false;
 	}

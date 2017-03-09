@@ -1,5 +1,14 @@
 package structures;
 
+/**
+ * Binary Tree data structure implementation.
+ * 
+ * @author Dimitre Bogdanov
+ *
+ * @param <E>
+ *            Type of data to me contained within the nodes of the Binary Tree.
+ *            Must be Comparable
+ */
 public class BinaryTree<E extends Comparable<E>> {
 
 	private class Node {
@@ -47,9 +56,15 @@ public class BinaryTree<E extends Comparable<E>> {
 		}
 	}
 
+	/**
+	 * Removes the first occurence
+	 * 
+	 * @param data
+	 *            Data contained in the Node to be removed
+	 */
 	public void remove(E data) {
 		internalRemove(root, data);
-		size--;
+		// size--;
 	}
 
 	private Node internalRemove(Node node, E data) {
@@ -64,6 +79,7 @@ public class BinaryTree<E extends Comparable<E>> {
 		} else if (data.compareTo(node.data) > 0) {
 			node.right = internalRemove(node.right, data);
 		} else {
+			size--;
 			// At this point, we have found the node to remove
 
 			// If there is only one child, left or right

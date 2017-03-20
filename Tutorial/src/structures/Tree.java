@@ -2,24 +2,31 @@ package structures;
 
 import java.util.Iterator;
 
+/**
+ * Tree data structure implementation. Most of these operations can be directly
+ * applied to the node and do not need to be encapsulated in a Tree class,
+ * however we are implementing it that way to demonstrate the implementation of
+ * the Tree ADT.
+ * 
+ * @author Dimitre Bogdanov
+ *
+ * @param <E>
+ */
 public class Tree<E> {
 
 	private TreeNode<E> root;
+	private int size;
 
 	public Tree() {
 		root = null;
 	}
 
-	public Tree(TreeNode<E> root) {
-		this.root = root;
-	}
-
 	public int size() {
-		return 0;
+		return size;
 	}
 
 	public boolean isEmpty() {
-		return size() == 0;
+		return size == 0;
 	}
 
 	public Iterator<E> iterator() {
@@ -53,9 +60,13 @@ public class Tree<E> {
 	public boolean isRoot(TreeNode<E> node) {
 		return root.equals(node);
 	}
-	
-	public E replace(TreeNode<E> node, E element){
+
+	public E replace() {
 		return null;
+	}
+	
+	public void addChild(TreeNode<E> node, E element){
+		
 	}
 
 }

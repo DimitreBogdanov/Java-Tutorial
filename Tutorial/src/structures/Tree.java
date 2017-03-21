@@ -1,6 +1,7 @@
 package structures;
 
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Tree data structure implementation. Most of these operations can be directly
@@ -13,8 +14,24 @@ import java.util.Iterator;
  * @param <E>
  */
 public class Tree<E> {
+	/*
+	 * private class TreeNode { private E data; private TreeNode parent; private
+	 * List<TreeNode> children;
+	 * 
+	 * public TreeNode(E data, TreeNode parent, List<TreeNode> children) {
+	 * this.data = data; this.parent = parent; this.children = children; }
+	 * 
+	 * public E getData() { return data; }
+	 * 
+	 * // Same functionality as getData but just having both for naming purpose
+	 * public E element() { return data; }
+	 * 
+	 * public TreeNode getParent() { return parent; }
+	 * 
+	 * public List<TreeNode> getChildren() { return children; } }
+	 */
 
-	private TreeNode<E> root;
+	private Tree<E> root;
 	private int size;
 
 	public Tree() {
@@ -37,36 +54,23 @@ public class Tree<E> {
 		return null;
 	}
 
-	public TreeNode<E> root() {
-		return root;
-	}
-
-	public TreeNode<E> parent(TreeNode<E> node) {
-		return node.getParent();
-	}
-
-	public Iterable<E> children(TreeNode<E> node) {
-		return null;
-	}
-
-	public boolean isInternal(TreeNode<E> node) {
-		return false;
-	}
-
-	public boolean isExternal(TreeNode<E> node) {
-		return false;
-	}
-
-	public boolean isRoot(TreeNode<E> node) {
-		return root.equals(node);
-	}
-
-	public E replace() {
-		return null;
-	}
-	
-	public void addChild(TreeNode<E> node, E element){
-		
-	}
-
+	/*
+	 * public TreeNode<E> root() { return root; }
+	 * 
+	 * public TreeNode<E> parent(TreeNode<E> node) { return node.getParent(); }
+	 * 
+	 * public Iterable<E> children(TreeNode<E> node) { return null; }
+	 * 
+	 * public boolean isInternal(TreeNode<E> node) { return false; }
+	 * 
+	 * public boolean isExternal(TreeNode<E> node) { return false; }
+	 * 
+	 * public boolean isRoot(TreeNode<E> node) { return root.equals(node); }
+	 * 
+	 * public E replace() { return null; }
+	 * 
+	 * public void addChild(TreeNode<E> node, E element){
+	 * 
+	 * }
+	 */
 }

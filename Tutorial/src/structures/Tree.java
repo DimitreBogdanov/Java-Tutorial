@@ -31,31 +31,76 @@ public class Tree<E> {
 	 * public List<TreeNode> getChildren() { return children; } }
 	 */
 
-	private Tree<E> root;
-	private int size;
+	// private Tree<E> root;
+	// private int size;
+	private E data;
+	private List<Tree<E>> children;
+	private Tree<E> parent;
 
 	public Tree() {
-		root = null;
+		parent = null;
+		data = null;
+		children = new ArrayList<Tree<E>>();
 	}
 
-	public int size() {
-		return size;
+	public Tree(E data) {
+		parent = null;
+		this.data = data;
+		children = new ArrayList<Tree<E>>();
+	}
+
+	public Tree(E data, Tree<E> parent) {
+		this.parent = parent;
+		this.data = data;
+		children = new ArrayList<Tree<E>>();
+	}
+
+	public List<Tree<E>> getChildren() {
+		return children;
+	}
+
+	public void addChild(E data) {
+		children.add(new Tree<E>(data));
+	}
+
+	public void addChildren(List<E> children) {
+		for (E element : children)
+			addChild(element);
+	}
+
+	public E getData() {
+		return data;
+	}
+
+	public void setData(E data) {
+		this.data = data;
+	}
+
+	public void setParent(Tree<E> parent) {
+		this.parent = parent;
+		if (this.parent != null)
+			this.parent.addChild(this.data);
 	}
 
 	public boolean isEmpty() {
-		return size == 0;
+		return parent == null && children.size() == 0 && data == null;
 	}
 
-	public Iterator<E> iterator() {
-		return null;
-	}
-
-	public Iterable<E> positions() {
-		return null;
+	public boolean isLeaf() {
+		return children.size() == 0;
 	}
 
 	/*
-	 * public TreeNode<E> root() { return root; }
+	 * public int size() { return size; }
+	 * 
+	 * public boolean isEmpty() { return size == 0; }
+	 */
+
+	/*
+	 * public Iterator<E> iterator() { return null; }
+	 * 
+	 * public Iterable<E> positions() { return null; } public TreeNode<E> root()
+	 * { return root; }
 	 * 
 	 * public TreeNode<E> parent(TreeNode<E> node) { return node.getParent(); }
 	 * 

@@ -49,11 +49,10 @@ public class Tree<E> {
 		children = new ArrayList<Tree<E>>();
 	}
 
-	public Tree(E data, Tree<E> parent) {
-		this.parent = parent;
-		this.data = data;
-		children = new ArrayList<Tree<E>>();
-	}
+	/*
+	 * public Tree(E data, Tree<E> parent) { this.parent = parent; this.data =
+	 * data; children = new ArrayList<Tree<E>>(); }
+	 */
 
 	public List<Tree<E>> getChildren() {
 		return children;
@@ -82,12 +81,20 @@ public class Tree<E> {
 			this.parent.addChild(this.data);
 	}
 
+	public Tree<E> getParent() {
+		return parent;
+	}
+
 	public boolean isEmpty() {
 		return parent == null && children.size() == 0 && data == null;
 	}
 
 	public boolean isLeaf() {
 		return children.size() == 0;
+	}
+
+	public boolean isRoot() {
+		return parent == null;
 	}
 
 	/*

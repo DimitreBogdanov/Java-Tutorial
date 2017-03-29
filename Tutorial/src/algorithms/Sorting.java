@@ -16,8 +16,6 @@ public class Sorting {
 	 * @return Sorted array of numbers
 	 */
 	public static int[] radix(int[] array) {
-		int[] finalArray = new int[array.length];
-
 		LinkedList<Integer>[] result = new LinkedList[10];
 		// Always 10 times, therefore O(1)
 		for (int i = 0; i < result.length; i++) {
@@ -45,7 +43,7 @@ public class Sorting {
 			}
 		}
 
-		return finalArray;
+		return array;
 	}
 
 	/**
@@ -79,92 +77,8 @@ public class Sorting {
 	}
 
 	public static <T extends Comparable<T>> T[] merge(T[] array) {
-		if (array == null)
-			throw new IllegalArgumentException("List is null");
-
-		int size = array.length;
-
-		T[] tempList = (T[]) new Object[size];
-
-		// the size of the sublists, constantly increasing by 2
-		int subListSize;
-
-		// the start index for the left sub array to compare
-		int leftStartIndex = 0;
-
-		// the end index for the left sub array to compare
-		int leftEndIndex = 0;
-
-		// the start index for the right sub array to compare
-		int rightStartIndex = 0;
-
-		// the end index for the right sub array to compare
-		int rightEndIndex = 0;
-
-		// the position within the temp array.
-		int tempPosition = 0;
-
-		// the number of sublists to compare, starting at the size of the list.
-		int numOfSubLists = size;
-
-		int startLeftPositionForPass = 0;
-
-		for (subListSize = 1; subListSize < size; subListSize *= 2) {
-
-			for (int pass = 0; pass < (numOfSubLists / 2); pass++) {
-
-				leftStartIndex = startLeftPositionForPass;
-				rightStartIndex = startLeftPositionForPass + subListSize;
-				leftEndIndex = startLeftPositionForPass + subListSize;
-				rightEndIndex = Math.min(startLeftPositionForPass + (2 * subListSize), size);
-
-				if (array[leftEndIndex].compareTo(array[rightStartIndex]) <= 0) {
-
-					while (leftStartIndex < leftEndIndex && (rightStartIndex < rightEndIndex)) {
-						if (array[leftStartIndex].compareTo(array[rightStartIndex]) <= 0) {
-							tempList[tempPosition] = array[leftStartIndex];
-							tempPosition++;
-							leftStartIndex++;
-						} else {
-							tempList[tempPosition] = array[rightStartIndex];
-							tempPosition++;
-							rightStartIndex++;
-						}
-
-					}
-				}
-
-				// Transfer remaining values to tempList while there's still
-				// values to transfer within the first subList
-				while (leftStartIndex < leftEndIndex) {
-					tempList[tempPosition] = array[leftStartIndex];
-					tempPosition++;
-					leftStartIndex++;
-				}
-
-				// Transfer remaining values to tempList while there's still
-				// values to transfer within the second subList
-				while (rightStartIndex < rightEndIndex) {
-					tempList[tempPosition] = array[rightStartIndex];
-					tempPosition++;
-					rightStartIndex++;
-				}
-
-			} // end second for loop.
-
-			for (int i = 0; i < tempPosition; i++) {
-				array[i] = tempList[i];
-			}
-
-			// divide numOfSubLists by 2 and add remainder if necessary
-			numOfSubLists = (numOfSubLists / 2) + (numOfSubLists % 2);
-
-			// reset tempPosition
-			tempPosition = 0;
-
-		}
-
-		return tempList;
+		T[] result = (T[]) new Object[array.length];
+		return null;
 	}
 
 	public static Object[] quick(Object[] array) {

@@ -76,9 +76,55 @@ public class Sorting {
 		return max;
 	}
 
-	public static <T extends Comparable<T>> T[] merge(T[] array) {
-		T[] result = (T[]) new Object[array.length];
-		return null;
+	public static Comparable[] mergeSort(Comparable[] array) {
+
+		if (array.length > 1) {
+			Comparable[] s1 = begin(array);
+			Comparable[] s2 = end(array);
+			s1 = mergeSort(s1);
+			s2 = mergeSort(s2);
+			array = merge(array, s1, s2);
+		}
+
+		return array;
+	}
+
+	private static Comparable[] merge(Comparable[] result, Comparable[] s1, Comparable[] s2) {
+		result = new Comparable[s1.length + s2.length];
+
+		int firstIndex = 0;
+		int secondIndex = 0;
+		int resultIndex = 0;
+		while (firstIndex != s1.length && secondIndex != s2.length) {
+			if (s1[firstIndex].compareTo(s2[secondIndex]) < 0) {
+				result[resultIndex++] = s1[firstIndex++];
+			} else {
+				result[resultIndex++] = s2[secondIndex++];
+			}
+		}
+		while (firstIndex != s1.length) {
+			result[resultIndex++] = s1[firstIndex++];
+		}
+		while (secondIndex != s2.length) {
+			result[resultIndex++] = s2[secondIndex++];
+		}
+
+		return result;
+	}
+
+	private static Comparable[] begin(Comparable[] array) {
+		Comparable[] result = new Comparable[array.length / 2];
+		for (int i = 0; i < result.length; i++)
+			result[i] = array[i];
+		return result;
+	}
+
+	private static Comparable[] end(Comparable[] array) {
+		int length = (array.length % 2 == 0) ? array.length / 2 : array.length / 2 + 1;
+		Comparable[] result = new Comparable[length];
+		for (int i = 0; i < length; i++)
+			result[i] = array[array.length / 2 + i];
+		return result;
 	}
 
 	public static Object[] quick(Object[] array) {

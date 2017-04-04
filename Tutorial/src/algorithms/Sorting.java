@@ -131,8 +131,21 @@ public class Sorting {
 		return null;
 	}
 
-	public static Object[] bubble(Object[] array) {
-		return null;
+	public static Comparable[] bubble(Comparable[] array) {
+		boolean swap;
+		do {
+			swap = false;
+			for (int i = 1; i < array.length; i++) {
+				// If the right element is smaller than the left element, swap
+				if (array[i].compareTo(array[i - 1]) < 0) {
+					Comparable temp = array[i];
+					array[i] = array[i - 1];
+					array[i - 1] = temp;
+					swap = true;
+				}
+			}
+		} while (swap);
+		return array;
 	}
 
 	public static Object[] selection(Object[] array) {

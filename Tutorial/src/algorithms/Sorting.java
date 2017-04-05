@@ -136,7 +136,6 @@ public class Sorting {
 
 		// Arbitrarily we are taking the last element as the pivot point every
 		// time
-
 		if (array.length <= 1)
 			return array;
 
@@ -144,7 +143,7 @@ public class Sorting {
 
 		List<Comparable> lower = new ArrayList<Comparable>();
 		List<Comparable> higher = new ArrayList<Comparable>();
-		List<Comparable> equal = new ArrayList<Comparable>();
+		int equal = 0;
 
 		for (int i = 0; i < array.length - 1; i++) {
 			Comparable current = array[i];
@@ -157,11 +156,11 @@ public class Sorting {
 				higher.add(current);
 			} else {
 				// Current element is equal to
-				equal.add(current);
+				equal++;
 			}
 		}
 
-		array = union(quick(toArray(lower)), equal, quick(toArray(higher)));
+		array = union(quick(toArray(lower)), pivot, equal, quick(toArray(higher)));
 
 		return array;
 	}
@@ -174,12 +173,9 @@ public class Sorting {
 		return result;
 	}
 
-	private static Comparable[] union(Object[] lower, List<Comparable> equal, Object[] higher) {
+	private static Comparable[] union(Object[] lower, Comparable pivot, int pivotCount, Object[] higher) {
 		int size = lower.length + higher.length;
-		if (equal.size() > 0) {
-			size += equal.size();
-			size++;
-		}
+		size += pivotCount + 1;
 
 		Comparable[] result = new Comparable[size];
 
@@ -189,12 +185,8 @@ public class Sorting {
 				result[n] = (Comparable) lower[i];
 			}
 		}
-
-		if (equal.size() > 0) {
-			Comparable pivot = equal.get(0);
-			for (int i = 0; i <= equal.size(); i++, n++) {
-				result[n] = pivot;
-			}
+		for (int i = 0; i <= pivotCount; i++, n++) {
+			result[n] = pivot;
 		}
 
 		if (higher.length > 0) {

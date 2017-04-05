@@ -1,6 +1,9 @@
 package algorithms;
 
 import java.util.LinkedList;
+import java.util.List;
+
+import structures.ArrayList;
 
 public class Sorting {
 
@@ -127,8 +130,80 @@ public class Sorting {
 		return result;
 	}
 
-	public static Object[] quick(Object[] array) {
-		return null;
+	// Can do another version where you input a starting pivot point but the
+	// algorithm is pretty much the same
+	public static Comparable[] quick(Comparable[] array) {
+
+		// Arbitrarily we are taking the last element as the pivot point every
+		// time
+
+		if (array.length <= 1)
+			return array;
+
+		Comparable pivot = array[array.length - 1];
+
+		List<Comparable> lower = new ArrayList<Comparable>();
+		List<Comparable> higher = new ArrayList<Comparable>();
+		List<Comparable> equal = new ArrayList<Comparable>();
+
+		for (int i = 0; i < array.length - 1; i++) {
+			Comparable current = array[i];
+
+			if (current.compareTo(pivot) < 0) {
+				// Current element is smaller
+				lower.add(current);
+			} else if (current.compareTo(pivot) > 0) {
+				// Current element is bigger
+				higher.add(current);
+			} else {
+				// Current element is equal to
+				equal.add(current);
+			}
+		}
+
+		array = union(quick(toArray(lower)), equal, quick(toArray(higher)));
+
+		return array;
+	}
+
+	private static Comparable[] toArray(List<Comparable> list) {
+		Comparable[] result = new Comparable[list.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = list.get(i);
+		}
+		return result;
+	}
+
+	private static Comparable[] union(Object[] lower, List<Comparable> equal, Object[] higher) {
+		int size = lower.length + higher.length;
+		if (equal.size() > 0) {
+			size += equal.size();
+			size++;
+		}
+
+		Comparable[] result = new Comparable[size];
+
+		int n = 0;
+		if (lower.length > 0) {
+			for (int i = 0; i < lower.length; i++, n++) {
+				result[n] = (Comparable) lower[i];
+			}
+		}
+
+		if (equal.size() > 0) {
+			Comparable pivot = equal.get(0);
+			for (int i = 0; i <= equal.size(); i++, n++) {
+				result[n] = pivot;
+			}
+		}
+
+		if (higher.length > 0) {
+			for (int i = 0; i < higher.length; i++, n++) {
+				result[n] = (Comparable) higher[i];
+			}
+		}
+
+		return result;
 	}
 
 	public static Comparable[] bubble(Comparable[] array) {

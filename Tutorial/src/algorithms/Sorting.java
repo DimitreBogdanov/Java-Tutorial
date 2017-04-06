@@ -215,8 +215,26 @@ public class Sorting {
 		return array;
 	}
 
-	public static Object[] selection(Object[] array) {
-		return null;
+	public static Comparable[] selection(Comparable[] array) {
+
+		for (int i = 0; i < array.length - 1; i++) {
+			int swap = i;
+			Comparable min = array[i];
+			int j = i + 1;
+			for (; j < array.length; j++) {
+				if (array[j].compareTo(min) < 0) {
+					min = array[j];
+					swap = j;
+				}
+			}
+			if (i != j) {
+				Comparable temp = array[i];
+				array[i] = min;
+				array[swap] = temp;
+			}
+		}
+
+		return array;
 	}
 
 	public static Object[] insertion(Object[] array) {

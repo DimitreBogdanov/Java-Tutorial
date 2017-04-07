@@ -165,14 +165,6 @@ public class Sorting {
 		return array;
 	}
 
-	private static Comparable[] toArray(List<Comparable> list) {
-		Comparable[] result = new Comparable[list.size()];
-		for (int i = 0; i < result.length; i++) {
-			result[i] = list.get(i);
-		}
-		return result;
-	}
-
 	private static Comparable[] union(Object[] lower, Comparable pivot, int pivotCount, Object[] higher) {
 		int size = lower.length + higher.length;
 		size += pivotCount + 1;
@@ -237,8 +229,21 @@ public class Sorting {
 		return array;
 	}
 
-	public static Object[] insertion(Object[] array) {
-		return null;
+	public static Comparable[] insertion(Comparable[] array) {
+		List<Comparable> result = new ArrayList<Comparable>(array.length);
+
+		result.add(array[0]);
+		for (int i = 1; i < array.length; i++) {
+			Comparable element = array[i];
+			for (int j = 0; j < result.size(); j++) {
+				if(element.compareTo(result.get(j)) <= 0){
+					result.add(j, element);
+					break;
+				}
+			}
+		}
+
+		return toArray(result);
 	}
 
 	public static Object[] heap(Object[] array) {
@@ -247,6 +252,14 @@ public class Sorting {
 
 	public static Object[] tree(Object[] array) {
 		return null;
+	}
+
+	private static Comparable[] toArray(List<Comparable> list) {
+		Comparable[] result = new Comparable[list.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = list.get(i);
+		}
+		return result;
 	}
 
 }

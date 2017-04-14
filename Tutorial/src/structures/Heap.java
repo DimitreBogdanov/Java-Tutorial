@@ -109,6 +109,7 @@ public class Heap<E extends Comparable<E>> {
 
 		if (data.get(start).compareTo(selected) > 0) {
 			swap(start, selectedIndex);
+			down(selectedIndex);
 		}
 
 	}

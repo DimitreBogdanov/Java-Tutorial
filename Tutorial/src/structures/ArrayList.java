@@ -7,9 +7,11 @@ import java.util.ListIterator;
 
 /**
  * List data structure implementation
+ * 
  * @author Dimitre Bogdanov
  *
- * @param <E> Type of data to me contained within the elements of the ArrayList
+ * @param <E>
+ *            Type of data to me contained within the elements of the ArrayList
  */
 public class ArrayList<E> implements List<E> {
 
@@ -119,6 +121,8 @@ public class ArrayList<E> implements List<E> {
 
 	@Override
 	public E get(int arg0) {
+		if (arg0 >= index)
+			return null;
 		return (E) data[arg0];
 	}
 
@@ -182,7 +186,7 @@ public class ArrayList<E> implements List<E> {
 	@Override
 	public E remove(int arg0) {
 		E temp = (E) data[arg0];
-		for (int i = arg0; i < index; i++) {
+		for (int i = arg0; i < index - 1; i++) {
 			data[i] = data[i + 1];
 		}
 		index--;
@@ -215,12 +219,12 @@ public class ArrayList<E> implements List<E> {
 
 	@Override
 	public List<E> subList(int arg0, int arg1) {
-		if(arg0 < 0 || arg1 >= capacity)
+		if (arg0 < 0 || arg1 >= capacity)
 			throw new IllegalArgumentException("Invalid sublist range");
-		
+
 		List<E> list = new ArrayList<E>();
 		for (int i = arg0; i < arg1; i++) {
-			list.add((E)data[i]);
+			list.add((E) data[i]);
 		}
 		return list;
 	}

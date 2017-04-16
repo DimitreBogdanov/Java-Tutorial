@@ -4,6 +4,9 @@ import java.util.List;
 
 public class Heap<E extends Comparable<E>> {
 
+	// Would usually be done using an array but using a list here so that we
+	// don't have to worry about expanding or trimming the array since it is
+	// part of the list ADT
 	private List<E> data;
 
 	// Left child 2n
@@ -34,6 +37,8 @@ public class Heap<E extends Comparable<E>> {
 	}
 
 	private E right(int index) {
+		if (((2 * index) + 1) > size())
+			return null;
 		return data.get((2 * index) + 1);
 	}
 
@@ -46,15 +51,25 @@ public class Heap<E extends Comparable<E>> {
 	}
 
 	private E left(int index) {
+		if ((2 * index) > size())
+			return null;
 		return data.get(2 * index);
 	}
 
 	public void add(E element) {
-		int index = size() + 1;
-		for (; index > 1 && element.compareTo(data.get(index / 2)) < 0; index /= 2) {
-			data.set(index, data.get(index / 2));
+		data.add(element);
+		up(size());
+	}
+
+	private void up(int start) {
+		if (start == 1)
+			return;
+		// If the parent is bigger than the current element, swap and continue
+		// recursively
+		if (data.get(parentIndex(start)).compareTo(data.get(start)) > 0) {
+			swap(start, parentIndex(start));
+			up(parentIndex(start));
 		}
-		data.add(index, element);
 	}
 
 	public int size() {
@@ -75,13 +90,10 @@ public class Heap<E extends Comparable<E>> {
 
 	public E removeMin() {
 		E element = min();
-
 		// Set the root to the last element
 		data.set(1, last());
 		data.remove(size());
-
 		down(1);
-
 		return element;
 	}
 
@@ -92,12 +104,15 @@ public class Heap<E extends Comparable<E>> {
 		E selected;
 		int selectedIndex;
 
+		// If it is a leaf, this is as far as it goes, return
 		if (right == null && left == null) {
 			return;
 		} else if (right == null) {
+			// If there is no right node, select the left
 			selected = left;
 			selectedIndex = leftIndex(start);
 		} else {
+			// If there are both left and right nodes, select the smallest side
 			if (left.compareTo(right) <= 0) {
 				selected = left;
 				selectedIndex = leftIndex(start);
@@ -107,6 +122,7 @@ public class Heap<E extends Comparable<E>> {
 			}
 		}
 
+		// Swap selected side and continue recursively
 		if (data.get(start).compareTo(selected) > 0) {
 			swap(start, selectedIndex);
 			down(selectedIndex);

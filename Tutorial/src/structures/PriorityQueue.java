@@ -1,47 +1,54 @@
 package structures;
 
-public class PriorityQueue<K implements Comparable, V> {
+public class PriorityQueue<T extends Comparable<T>> {
 
-	private class Node {
+	/*
+	 * private class Node implements Comparable<K> {
+	 * 
+	 * private K key; private V value;
+	 * 
+	 * public Node(K key, V value) { this.key = key; this.value = value; }
+	 * 
+	 * public K getKey() { return key; }
+	 * 
+	 * public V getValue() { return value; }
+	 * 
+	 * @Override public int compareTo(K arg0) { return key.compareTo(arg0); } }
+	 */
 
-		private K key;
-		private V value;
+	// There are various different ways of implementing a PQ, some of which will
+	// include internal nodes with K/V pairs, some with primitive data types
+	// such as int, some will take a Comparator as argument in order to give the
+	// user more options in terms of the order, this is one of many ways to go
+	// about it
 
-		public Node(K key, V value) {
-			this.key = key;
-			this.value = value;
-		}
-
-		public K getKey() {
-			return key;
-		}
-
-		public V getValue() {
-			return value;
-		}
-	}
+	// Going to use a heap and have the priority queue sorted in ascending order
+	// arbitrarily.
+	private Heap<T> data;
 
 	public PriorityQueue() {
-
+		data = new Heap<T>();
 	}
 
-	public void insert(K key, V value) {
-		Node n = new Node(key, value);
+	public void insert(T element) {
+		data.add(element);
 	}
-	
-	public V remove(){
-		return null;
+
+	public T remove() {
+		return data.removeMin();
 	}
-	
-	public V min(){
-		return null;
+
+	// Same as having something such as public T first()
+	// since we are doing it purely on ascending order based on Comparable
+	public T min() {
+		return data.min();
 	}
-	
-	public int size(){
-		return -1;
+
+	public int size() {
+		return data.size();
 	}
-	
-	public boolean isEmpty(){
+
+	public boolean isEmpty() {
 		return size() == 0;
 	}
 

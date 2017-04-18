@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import structures.ArrayList;
+import structures.Heap;
 
 public class Sorting {
 
@@ -236,7 +237,7 @@ public class Sorting {
 		for (int i = 1; i < array.length; i++) {
 			Comparable element = array[i];
 			for (int j = 0; j < result.size(); j++) {
-				if(element.compareTo(result.get(j)) <= 0){
+				if (element.compareTo(result.get(j)) <= 0) {
 					result.add(j, element);
 					break;
 				}
@@ -246,8 +247,16 @@ public class Sorting {
 		return toArray(result);
 	}
 
-	public static Object[] heap(Object[] array) {
-		return null;
+	public static <T extends Comparable<T>> T[] heap(T[] array) {
+		Heap<T> h = new Heap<T>();
+		for (int i = 0; i < array.length; i++) {
+			h.add(array[i]);
+		}
+
+		for (int i = 0; h.size() > 0; i++) {
+			array[i] = h.removeMin();
+		}
+		return array;
 	}
 
 	public static Object[] tree(Object[] array) {

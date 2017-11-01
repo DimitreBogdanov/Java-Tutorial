@@ -61,6 +61,10 @@ public class Tree<E> {
 	public void addChild(E data) {
 		children.add(new Tree<E>(data));
 	}
+	
+	public void addChild(Tree<T> child) {
+		children.add(child);
+	}
 
 	public void addChildren(List<E> children) {
 		for (E element : children)

@@ -59,10 +59,13 @@ public class Tree<E> {
 	}
 
 	public void addChild(E data) {
-		children.add(new Tree<E>(data));
+		Tree<T> child = new Tree<E>(data);
+		child.setParent(this);
+		children.add(child);
 	}
 	
 	public void addChild(Tree<T> child) {
+		child.setParent(this);
 		children.add(child);
 	}
 
